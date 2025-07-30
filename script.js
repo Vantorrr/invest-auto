@@ -70,6 +70,149 @@ function selectOption(selectName, value, text) {
     options.classList.remove('active');
 }
 
+// New function for contact method selection
+function selectContactMethod(method, text) {
+    console.log(`🎯 selectContactMethod called:`, { method, text });
+    
+    // Update the hidden input
+    const hiddenInput = document.getElementById('contactMethod');
+    hiddenInput.value = method;
+    
+    // Update displayed text
+    const trigger = document.querySelector('#contactMethod-options').previousElementSibling;
+    const selectText = trigger.querySelector('.select-text');
+    selectText.textContent = text;
+    selectText.classList.remove('placeholder');
+    
+    // Show contact input field
+    const contactGroup = document.getElementById('contactInputGroup');
+    const contactLabel = document.getElementById('contactLabel');
+    const contactInput = document.getElementById('contactValue');
+    const contactHint = document.getElementById('contactHint');
+    
+    contactGroup.style.display = 'block';
+    contactInput.value = ''; // Clear previous value
+    
+    // Update label, placeholder, and hints based on method
+    switch(method) {
+        case 'phone':
+            contactLabel.textContent = 'Номер телефона *';
+            contactInput.type = 'tel';
+            contactInput.placeholder = '+7 (___) ___-__-__';
+            contactHint.textContent = 'Введите номер в формате: +7 (999) 123-45-67';
+            applyPhoneMask(contactInput);
+            break;
+        case 'whatsapp':
+            contactLabel.textContent = 'WhatsApp *';
+            contactInput.type = 'tel';
+            contactInput.placeholder = '+7 (___) ___-__-__';
+            contactHint.textContent = 'Введите номер WhatsApp: +7 (999) 123-45-67';
+            applyPhoneMask(contactInput);
+            break;
+        case 'telegram':
+            contactLabel.textContent = 'Telegram *';
+            contactInput.type = 'text';
+            contactInput.placeholder = '@username или номер';
+            contactHint.textContent = 'Введите @username или номер телефона';
+            removePhoneMask(contactInput);
+            break;
+        case 'email':
+            contactLabel.textContent = 'Email *';
+            contactInput.type = 'email';
+            contactInput.placeholder = 'example@mail.com';
+            contactHint.textContent = 'Введите ваш email адрес';
+            removePhoneMask(contactInput);
+            break;
+    }
+    
+    // Close select
+    trigger.classList.remove('active');
+    document.getElementById('contactMethod-options').classList.remove('active');
+    
+    // Focus on contact input
+    setTimeout(() => contactInput.focus(), 100);
+}
+
+// Phone mask functions
+function applyPhoneMask(input) {
+    // Remove existing listeners
+    removePhoneMask(input);
+    
+    // Set initial value
+    if (!input.value || input.value === '') {
+        input.value = '+7 (';
+    }
+    
+    input.addEventListener('input', handlePhoneInput);
+    input.addEventListener('keydown', handlePhoneKeydown);
+    input.addEventListener('focus', handlePhoneFocus);
+}
+
+function removePhoneMask(input) {
+    input.removeEventListener('input', handlePhoneInput);
+    input.removeEventListener('keydown', handlePhoneKeydown);
+    input.removeEventListener('focus', handlePhoneFocus);
+}
+
+function handlePhoneInput(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    
+    // Always start with 7 for Russia
+    if (value.length === 0) {
+        e.target.value = '+7 (';
+        return;
+    }
+    
+    if (value[0] !== '7') {
+        value = '7' + value;
+    }
+    
+    // Limit to 11 digits (7 + 10)
+    value = value.substring(0, 11);
+    
+    // Format the number
+    let formatted = '+7';
+    if (value.length > 1) {
+        formatted += ' (' + value.substring(1, 4);
+    }
+    if (value.length > 4) {
+        formatted += ') ' + value.substring(4, 7);
+    }
+    if (value.length > 7) {
+        formatted += '-' + value.substring(7, 9);
+    }
+    if (value.length > 9) {
+        formatted += '-' + value.substring(9, 11);
+    }
+    
+    e.target.value = formatted;
+}
+
+function handlePhoneKeydown(e) {
+    const input = e.target;
+    
+    // Allow backspace to clear completely
+    if (e.key === 'Backspace') {
+        if (input.value.length <= 4) { // "+7 (" length
+            setTimeout(() => {
+                input.value = '+7 (';
+            }, 0);
+        }
+    }
+    
+    // Prevent non-numeric input except allowed keys
+    if (!/[0-9]/.test(e.key) && 
+        !['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault();
+    }
+}
+
+function handlePhoneFocus(e) {
+    if (!e.target.value || e.target.value === '') {
+        e.target.value = '+7 (';
+    }
+}
+
 function closeAllSelects(except = null) {
     const allTriggers = document.querySelectorAll('.select-trigger');
     const allOptions = document.querySelectorAll('.select-options');
@@ -123,65 +266,40 @@ function submitForm(event) {
     
     console.log('🚀 submitForm called with event.target:', event.target);
     
-    // MANUALLY GET VALUES to bypass FormData issue
+    // Get values from new form structure
     const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const investment = document.getElementById('investment').value;
-    const strategyValue = document.getElementById('strategy').value;
+    const contactMethod = document.getElementById('contactMethod').value;
+    const contactValue = document.getElementById('contactValue').value;
     
-    // Convert strategy value to readable text
-    const strategyMap = {
-        'rent': 'Аренда ТС',
-        'buyout': 'Выкуп ТС',
-        'both': 'Рассмотрю обе'
+    // Convert contact method to readable text
+    const contactMethodMap = {
+        'phone': 'Телефон',
+        'whatsapp': 'WhatsApp',
+        'telegram': 'Telegram',
+        'email': 'Email'
     };
-    const strategy = strategyMap[strategyValue] || 'Не указана';
+    const contactMethodText = contactMethodMap[contactMethod] || 'Не указан';
     
-    console.log('🔧 MANUAL VALUE COLLECTION:');
+    console.log('🔧 FORM DATA COLLECTION:');
     console.log(`  name: "${name}"`);
-    console.log(`  phone: "${phone}"`);
-    console.log(`  investment: "${investment}"`);
-    console.log(`  strategyValue: "${strategyValue}"`);
-    console.log(`  strategy (text): "${strategy}"`);
+    console.log(`  contactMethod: "${contactMethod}"`);
+    console.log(`  contactMethodText: "${contactMethodText}"`);
+    console.log(`  contactValue: "${contactValue}"`);
     
-    // Create data object manually
+    // Create data object
     const data = {
         name: name,
-        phone: phone,
-        investment: investment,
-        strategy: strategy
+        contactMethod: contactMethodText,
+        contactValue: contactValue
     };
     
-    console.log('📊 Manual data object:', data);
-    
-    // Also try FormData for comparison
-    const formData = new FormData(event.target);
-    console.log('📦 FormData created:', formData);
-    
-    // Log all FormData entries
-    console.log('📋 FormData entries:');
-    for (let [key, value] of formData.entries()) {
-        console.log(`  ${key}: "${value}" (length: ${value.length})`);
-    }
-    
-    const formDataObj = Object.fromEntries(formData);
-    console.log('📊 FormData object:', formDataObj);
-    
-    // Check all inputs in the form
-    console.log('🔍 ALL FORM INPUTS:');
-    const allInputs = event.target.querySelectorAll('input, select, textarea');
-    allInputs.forEach(input => {
-        console.log(`  ${input.name || input.id}: "${input.value}" (type: ${input.type})`);
-    });
-    
-    // Use manual data (which should have strategy)
-    console.log('✅ Using MANUAL data for Telegram');
+    console.log('📊 Final data object:', data);
     
     // Close modal and show success animation
     closeModal();
     showSuccessAnimation();
     
-    // Send to Telegram with manual data
+    // Send to Telegram
     sendToTelegram(data);
 }
 
@@ -237,12 +355,11 @@ function sendToTelegram(data) {
     console.log('📱 Sending to Telegram:', data);
     
     const message = `
-🎯 Новая заявка на инвестиции!
+🎯 Новая заявка на консультацию!
 
 👤 Имя: ${data.name || 'Не указано'}
-📞 Телефон: ${data.phone || 'Не указан'}
-💰 Сумма инвестиций: ${data.investment || 'Не указана'}
-📊 Стратегия: ${data.strategy || 'Не указана'}
+📞 Способ связи: ${data.contactMethod || 'Не указан'}
+💬 Контакт: ${data.contactValue || 'Не указан'}
 
 🕐 Время: ${new Date().toLocaleString('ru-RU')}
     `;
@@ -370,16 +487,10 @@ function validateForm() {
     console.log('🔍 validateForm called!');
     
     const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const strategy = document.getElementById('strategy').value.trim();
+    const contactMethod = document.getElementById('contactMethod').value.trim();
+    const contactValue = document.getElementById('contactValue').value.trim();
     
-    console.log('📋 Validation values:', { name, phone, strategy });
-    console.log('📊 Strategy value details:', { 
-        value: strategy, 
-        length: strategy.length, 
-        isEmpty: strategy === '',
-        isFalsy: !strategy 
-    });
+    console.log('📋 Validation values:', { name, contactMethod, contactValue });
     
     if (!name) {
         console.log('❌ Name validation failed');
@@ -387,28 +498,49 @@ function validateForm() {
         return false;
     }
     
-    if (!phone) {
-        console.log('❌ Phone validation failed');
-        alert('Пожалуйста, введите номер телефона');
+    if (!contactMethod) {
+        console.log('❌ Contact method validation failed');
+        alert('Пожалуйста, выберите способ связи');
         return false;
     }
     
-    // Basic phone validation
-    const phoneRegex = /^[\+]?[0-9\s\-\(\)]{7,}$/;
-    if (!phoneRegex.test(phone)) {
-        console.log('❌ Phone format validation failed');
-        alert('Пожалуйста, введите корректный номер телефона');
+    if (!contactValue) {
+        console.log('❌ Contact value validation failed');
+        alert('Пожалуйста, введите контактную информацию');
         return false;
     }
     
-    // Strategy validation
-    if (!strategy || strategy === '') {
-        console.log('❌ Strategy validation failed - no strategy selected');
-        alert('Пожалуйста, выберите предпочитаемую стратегию');
-        return false;
+    // Validate based on contact method
+    switch(contactMethod) {
+        case 'phone':
+        case 'whatsapp':
+            const phoneRegex = /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/;
+            if (!phoneRegex.test(contactValue)) {
+                console.log('❌ Phone format validation failed');
+                alert('Пожалуйста, введите корректный номер телефона в формате +7 (999) 123-45-67');
+                return false;
+            }
+            break;
+        case 'email':
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(contactValue)) {
+                console.log('❌ Email format validation failed');
+                alert('Пожалуйста, введите корректный email адрес');
+                return false;
+            }
+            break;
+        case 'telegram':
+            // Allow @username or phone number
+            const telegramRegex = /^(@[a-zA-Z0-9_]{5,32}|\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}|[a-zA-Z0-9_]{5,32})$/;
+            if (!telegramRegex.test(contactValue)) {
+                console.log('❌ Telegram format validation failed');
+                alert('Пожалуйста, введите корректный Telegram: @username или номер телефона');
+                return false;
+            }
+            break;
     }
     
-    console.log('✅ ALL validation passed! Strategy:', strategy);
+    console.log('✅ ALL validation passed!', { name, contactMethod, contactValue });
     return true;
 }
 

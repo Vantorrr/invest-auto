@@ -1038,10 +1038,10 @@ p {
     font-size: 4rem !important;
     font-weight: 900 !important;
     line-height: 1.1 !important;
-    color: var(--text-dark) !important;
+    color: #2C2C2C !important;
     margin-bottom: 3rem !important;
     letter-spacing: -0.02em !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
 }
 
@@ -1834,55 +1834,349 @@ section {
     margin-bottom: 3rem;
 }
 
+/* ЗОЛОТЫЕ СЛИТКИ - ГОРОДА */
 .cities {
     text-align: center;
-    padding: 2rem;
-    background: var(--light-gold);
-    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    background: 
+        linear-gradient(135deg, #FFD700 0%, #FFC107 25%, #FF8F00 50%, #FFC107 75%, #FFD700 100%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.3) 0%, transparent 20%, transparent 80%, rgba(255, 255, 255, 0.3) 100%);
+    background-size: 100% 100%, 200% 200%;
+    border-radius: 8px;
     margin-bottom: 2rem;
-    margin-top: 8.7rem;
+    margin-top: 7.5rem;
+    position: relative;
+    overflow: hidden;
+    
+    /* 3D Золотой слиток эффект */
+    box-shadow: 
+        0 15px 35px rgba(255, 193, 7, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.1),
+        inset 0 2px 0 rgba(255, 255, 255, 0.7),
+        inset 0 -2px 0 rgba(255, 140, 0, 0.8),
+        inset 2px 0 0 rgba(255, 255, 255, 0.3),
+        inset -2px 0 0 rgba(255, 140, 0, 0.5);
+    
+    border: 2px solid #FF8F00;
+    transform: perspective(1000px) rotateX(5deg);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    
+}
+
+/* Эффект штамповки для городов */
+.cities::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid rgba(255, 140, 0, 0.6);
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+/* Блестящий отражающий слой для городов */
+.cities::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.6) 50%, 
+        transparent 100%);
+    transition: left 1.5s ease;
+    pointer-events: none;
+}
+
+.cities:hover {
+    transform: perspective(1000px) rotateX(0deg) translateY(-8px);
+    box-shadow: 
+        0 25px 50px rgba(255, 193, 7, 0.6),
+        0 10px 25px rgba(0, 0, 0, 0.15),
+        inset 0 3px 0 rgba(255, 255, 255, 0.8),
+        inset 0 -3px 0 rgba(255, 140, 0, 0.9),
+        inset 3px 0 0 rgba(255, 255, 255, 0.4),
+        inset -3px 0 0 rgba(255, 140, 0, 0.6);
+}
+
+.cities:hover::after {
+    left: 100%;
 }
 
 .cities h3 {
-    color: var(--primary-gold);
+    color: #5D2D0C;
     margin-bottom: 0.5rem;
+    font-weight: 900;
+    text-shadow: 
+        0 1px 0 rgba(255, 255, 255, 0.9),
+        0 2px 4px rgba(139, 69, 19, 0.4),
+        0 0 8px rgba(255, 255, 255, 0.6);
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 2;
+    
+    /* Эффект выдавленного текста */
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
 .cities-note {
-    color: var(--text-dark);
+    color: #5D2D0C;
     font-style: italic;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-shadow: 
+        0 1px 0 rgba(255, 255, 255, 0.8),
+        0 0 6px rgba(255, 255, 255, 0.5);
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
 .city-name {
-    color: var(--primary-blue) !important;
-    font-weight: 700 !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: #2F1B14 !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.5px;
+    
+    /* Эффект вдавленной гравировки */
+    text-shadow: 
+        0 -1px 0 rgba(255, 255, 255, 1),
+        0 1px 3px rgba(139, 69, 19, 0.8),
+        0 0 8px rgba(255, 255, 255, 0.7) !important;
+    
+    /* Дополнительный контраст */
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3)) !important;
 }
 
+/* ЗОЛОТЫЕ СЛИТКИ - АКТИВЫ (ПРЕМИУМ) */
 .assets-info {
     text-align: center;
-    padding: 2rem;
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--dark-gold) 100%);
-    border-radius: 20px;
-    color: var(--white);
+    padding: 3rem 2rem;
+    background: 
+        linear-gradient(135deg, #FFD700 0%, #FFA000 20%, #FF6F00 40%, #FFA000 60%, #FFD700 80%, #FFECB3 100%),
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(255, 215, 0, 0.8) 0%, rgba(255, 111, 0, 0.8) 100%);
+    background-size: 100% 100%, 200% 200%, 100% 100%;
+    border-radius: 12px;
+    color: #4A4A4A;
     margin-top: 1rem;
+    position: relative;
+    overflow: hidden;
+    
+    /* ПРЕМИУМ 3D эффект слитка */
+    box-shadow: 
+        0 20px 40px rgba(255, 193, 7, 0.5),
+        0 10px 20px rgba(0, 0, 0, 0.15),
+        inset 0 3px 0 rgba(255, 255, 255, 0.8),
+        inset 0 -3px 0 rgba(255, 111, 0, 0.9),
+        inset 3px 0 0 rgba(255, 255, 255, 0.5),
+        inset -3px 0 0 rgba(255, 111, 0, 0.7),
+        inset 0 0 20px rgba(255, 215, 0, 0.3);
+    
+    border: 3px solid #FF6F00;
+    transform: perspective(1200px) rotateX(8deg) rotateY(-2deg);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    
+}
+
+/* Рамка штамповки для активов */
+.assets-info::before {
+    content: 'LEV INVEST';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    height: 20px;
+    border: 2px solid rgba(255, 111, 0, 0.8);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: #2F1B14;
+    text-shadow: 
+        0 1px 0 rgba(255, 255, 255, 1),
+        0 0 4px rgba(255, 255, 255, 0.6);
+    letter-spacing: 2px;
+    pointer-events: none;
+    z-index: 1;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Блестящий отражающий эффект для активов */
+.assets-info::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(110deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.8) 30%, 
+        rgba(255, 255, 255, 0.9) 50%, 
+        rgba(255, 255, 255, 0.8) 70%, 
+        transparent 100%);
+    transition: left 2s ease;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.assets-info:hover {
+    transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(-12px) scale(1.02);
+    box-shadow: 
+        0 30px 60px rgba(255, 193, 7, 0.7),
+        0 15px 30px rgba(0, 0, 0, 0.2),
+        inset 0 4px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -4px 0 rgba(255, 111, 0, 1),
+        inset 4px 0 0 rgba(255, 255, 255, 0.6),
+        inset -4px 0 0 rgba(255, 111, 0, 0.8),
+        inset 0 0 30px rgba(255, 215, 0, 0.4);
+}
+
+.assets-info:hover::after {
+    left: 100%;
 }
 
 .assets-info h3 {
-    color: var(--white);
-    font-size: 1.2rem;
+    color: #2F1B14;
+    font-size: 1.1rem;
+    font-weight: 900;
+    text-shadow: 
+        0 1px 0 rgba(255, 255, 255, 1),
+        0 3px 6px rgba(139, 69, 19, 0.6),
+        0 0 12px rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.8px;
+    position: relative;
+    z-index: 2;
+    margin-top: 1.5rem;
+    
+    /* Эффект глубокой гравировки */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
+/* ПРЕМИУМ ПОДСВЕТКА СУММЫ */
 .highlight-amount {
-    background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%) !important;
+    background: linear-gradient(135deg, #8B4513 0%, #2F1B14 50%, #8B4513 100%) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
     font-weight: 900 !important;
-    font-size: 1.3em !important;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
-    letter-spacing: 0.5px !important;
+    font-size: 1.4em !important;
+    letter-spacing: 1px !important;
+    position: relative;
+    z-index: 2;
+    
+    /* Глубокая гравировка для суммы */
+    filter: drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.8)) 
+            drop-shadow(0 2px 4px rgba(139, 69, 19, 0.6)) !important;
+    
+}
+
+/* Дополнительный эффект выделения для суммы */
+.highlight-amount::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 111, 0, 0.8) 20%, 
+        rgba(255, 215, 0, 1) 50%, 
+        rgba(255, 111, 0, 0.8) 80%, 
+        transparent 100%);
+    border-radius: 1px;
+}
+
+/* АНИМАЦИИ ДЛЯ ЗОЛОТЫХ СЛИТКОВ */
+@keyframes goldBarShine {
+    0% { 
+        background-position: -200% 0, 0 0;
+        transform: perspective(1000px) rotateX(5deg);
+    }
+    50% { 
+        background-position: 200% 0, 0 0;
+        transform: perspective(1000px) rotateX(3deg);
+    }
+    100% { 
+        background-position: -200% 0, 0 0;
+        transform: perspective(1000px) rotateX(5deg);
+    }
+}
+
+@keyframes premiumGoldShine {
+    0% { 
+        background-position: -200% 0, 0 0, 0 0;
+        transform: perspective(1200px) rotateX(8deg) rotateY(-2deg);
+    }
+    50% { 
+        background-position: 200% 0, 0 0, 0 0;
+        transform: perspective(1200px) rotateX(5deg) rotateY(1deg);
+    }
+    100% { 
+        background-position: -200% 0, 0 0, 0 0;
+        transform: perspective(1200px) rotateX(8deg) rotateY(-2deg);
+    }
+}
+
+/* Обновляем основные правила с анимацией */
+.cities {
+    animation: goldBarShine 8s ease-in-out infinite;
+}
+
+.assets-info {
+    animation: premiumGoldShine 10s ease-in-out infinite;
+}
+
+/* МОБИЛЬНАЯ АДАПТАЦИЯ ЗОЛОТЫХ СЛИТКОВ */
+@media (max-width: 768px) {
+    .cities {
+        transform: perspective(800px) rotateX(3deg);
+        margin-top: 5rem;
+        padding: 2rem 1.5rem;
+        box-shadow: 
+            0 10px 25px rgba(255, 193, 7, 0.4),
+            0 3px 10px rgba(0, 0, 0, 0.1),
+            inset 0 2px 0 rgba(255, 255, 255, 0.7),
+            inset 0 -2px 0 rgba(255, 140, 0, 0.8);
+    }
+    
+    .cities:hover {
+        transform: perspective(800px) rotateX(0deg) translateY(-5px);
+    }
+    
+    .assets-info {
+        transform: perspective(900px) rotateX(5deg) rotateY(0deg);
+        padding: 2.5rem 1.5rem;
+        box-shadow: 
+            0 15px 30px rgba(255, 193, 7, 0.5),
+            0 5px 15px rgba(0, 0, 0, 0.15),
+            inset 0 2px 0 rgba(255, 255, 255, 0.8),
+            inset 0 -2px 0 rgba(255, 111, 0, 0.9);
+    }
+    
+    .assets-info:hover {
+        transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateY(-8px);
+    }
+    
+    .assets-info::before {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        height: 15px;
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+    }
+    
+    .highlight-amount {
+        font-size: 1.2em !important;
+    }
 }
 
 .about-details {
@@ -1986,6 +2280,12 @@ section {
 .stat-circle p {
     font-size: 0.9rem;
     line-height: 1.3;
+}
+
+.stat-circle.highlight p {
+    color: var(--white);
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .arrow {
@@ -2697,10 +2997,13 @@ section {
 }
 
 .case-card .value.gold {
-    color: var(--primary-gold);
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    color: #F4D03F;
+    font-weight: 800;
+    font-size: 1.15rem;
+    text-shadow: 
+        0 0 5px rgba(244, 208, 63, 0.5),
+        0 2px 4px rgba(0, 0, 0, 0.6);
+    filter: brightness(1.1);
 }
 
 .case-card .profitability {
@@ -2714,10 +3017,13 @@ section {
 }
 
 .case-card .percentage {
-    font-weight: 700;
-    color: var(--primary-gold);
-    font-size: 1.1rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    font-weight: 800;
+    color: #F4D03F;
+    font-size: 1.15rem;
+    text-shadow: 
+        0 0 5px rgba(244, 208, 63, 0.5),
+        0 2px 4px rgba(0, 0, 0, 0.6);
+    filter: brightness(1.1);
 }
 
 .cases-note {
@@ -2953,8 +3259,13 @@ th {
 }
 
 .value.gold {
-    color: var(--primary-gold);
+    color: #F4D03F;
     font-size: 1.3rem;
+    font-weight: 800;
+    text-shadow: 
+        0 0 4px rgba(244, 208, 63, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.5);
+    filter: brightness(1.1);
 }
 
 .profitability {
@@ -2963,9 +3274,13 @@ th {
 }
 
 .percentage {
-    color: var(--primary-gold);
-    font-size: 1.2rem;
-    font-weight: 700;
+    color: #F4D03F;
+    font-size: 1.25rem;
+    font-weight: 800;
+    text-shadow: 
+        0 0 4px rgba(244, 208, 63, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.5);
+    filter: brightness(1.1);
 }
 
 /* FAQ Section */
@@ -3389,7 +3704,8 @@ th {
     border-radius: 20px;
     width: 90%;
     max-width: 500px;
-    max-height: 90vh;
+    max-height: 95vh;
+    min-height: 600px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -3454,6 +3770,15 @@ th {
     box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
 }
 
+/* Contact hint styling */
+.contact-hint {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.5rem;
+    font-style: italic;
+    padding: 0 5px;
+}
+
 /* Custom Select Styles */
 .custom-select {
     position: relative;
@@ -3516,8 +3841,8 @@ th {
     border-top: none;
     border-radius: 0 0 10px 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    max-height: 200px;
+    z-index: 1000;
+    max-height: 250px;
     overflow-y: auto;
     opacity: 0;
     visibility: hidden;
@@ -5054,6 +5379,8 @@ th {
         line-height: 1.1 !important;
         margin-bottom: 1rem !important;
         padding: 0 10px !important;
+        color: #2C2C2C !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
     }
     
     .cta-note {
@@ -5232,6 +5559,7 @@ th {
         max-width: 350px;
         padding: 1.5rem;
         max-height: 98vh;
+        min-height: 500px;
     }
     
     .form-group {
@@ -5298,6 +5626,7 @@ th {
     .modal-content {
         width: 95%;
         padding: 1.5rem;
+        min-height: 450px;
     }
     
     /* Steps Chain Mobile */

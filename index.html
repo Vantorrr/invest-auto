@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
     <!-- Premium Preloader -->
@@ -236,7 +236,7 @@
                     <div class="team">
                         <h3>КОМАНДА РУКОВОДСТВА</h3>
                         <p>Тут мы могли бы написать, что у нас гигантская команда, обещая для красоты презентации "тысячи фиксиков" в штате, которых по факту не существует. Но мы <strong>предельно честны перед каждым инвестором:</strong> наша эффективность строится на отсутствии раздутых должностей.</p>
-                        <p>Наша команда - это не просто сотрудники, а тщательно подобранные профессионалы. <strong>Наш подход: максимальная эффективность, основанная на четком управлении и синергии при оптимальной численности.</strong></p>
+                        <p>Наша команда - это не просто сотрудники, а тщательно подобранные профессионалы и эксперты рынка. <strong>Наш подход: максимальная эффективность, основанная на четком управлении и синергии при оптимальной численности.</strong></p>
                     </div>
                 </div>
             </div>
@@ -1124,49 +1124,30 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="phone">Номер телефона *</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="investment">Сумма инвестиций</label>
+                    <label for="contactMethod">Способ связи *</label>
                     <div class="custom-select">
-                        <div class="select-trigger" onclick="toggleSelect('investment')">
-                            <span class="select-text placeholder">Выберите сумму</span>
+                        <div class="select-trigger" onclick="toggleSelect('contactMethod')">
+                            <span class="select-text placeholder">Выберите способ связи</span>
                             <div class="select-arrow">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                     <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"/>
                                 </svg>
                             </div>
                         </div>
-                        <div class="select-options" id="investment-options">
-                            <div class="option" onclick="selectOption('investment', '', 'Выберите сумму')">Выберите сумму</div>
-                            <div class="option" onclick="selectOption('investment', '1000000-2000000', '1-2 млн ₽')">1-2 млн ₽</div>
-                            <div class="option" onclick="selectOption('investment', '2000000-5000000', '2-5 млн ₽')">2-5 млн ₽</div>
-                            <div class="option" onclick="selectOption('investment', '5000000+', '5+ млн ₽')">5+ млн ₽</div>
+                        <div class="select-options" id="contactMethod-options">
+                            <div class="option" onclick="selectContactMethod('phone', '📞 Телефон')">📞 Телефон</div>
+                            <div class="option" onclick="selectContactMethod('whatsapp', '💬 WhatsApp')">💬 WhatsApp</div>
+                            <div class="option" onclick="selectContactMethod('telegram', '✈️ Telegram')">✈️ Telegram</div>
+                            <div class="option" onclick="selectContactMethod('email', '📧 Email')">📧 Email</div>
                         </div>
-                        <input type="hidden" id="investment" name="investment" value="">
+                        <input type="hidden" id="contactMethod" name="contactMethod" value="">
                     </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="strategy">Предпочитаемая стратегия</label>
-                    <div class="custom-select">
-                        <div class="select-trigger" onclick="toggleSelect('strategy')">
-                            <span class="select-text placeholder">Выберите стратегию</span>
-                            <div class="select-arrow">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="select-options" id="strategy-options">
-                            <div class="option" onclick="selectOption('strategy', 'rent', 'Аренда ТС')">Аренда ТС</div>
-                            <div class="option" onclick="selectOption('strategy', 'buyout', 'Выкуп ТС')">Выкуп ТС</div>
-                            <div class="option" onclick="selectOption('strategy', 'both', 'Рассмотрю обе')">Рассмотрю обе</div>
-                        </div>
-                        <input type="hidden" id="strategy" name="strategy" value="">
-                    </div>
+                <div class="form-group" id="contactInputGroup" style="display: none;">
+                    <label for="contactValue" id="contactLabel">Контакт *</label>
+                    <input type="text" id="contactValue" name="contactValue" required>
+                    <div class="contact-hint" id="contactHint"></div>
                 </div>
                 
                 <button type="submit" class="btn-modal-submit">
@@ -1217,6 +1198,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=6"></script>
+    <script src="script.js?v=8"></script>
 </body>
 </html> 
