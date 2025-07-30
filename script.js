@@ -1,6 +1,8 @@
 // Debug: Script loaded
-console.log('🚀 SCRIPT LOADED! Version 6 - КРАСИВЫЙ ТЕКСТ СТРАТЕГИИ!');
+console.log('🚀 SCRIPT LOADED! Version 9 - ПРОСТОЕ МОБИЛЬНОЕ МЕНЮ!');
 console.log('🕐 Time:', new Date().toLocaleString());
+
+
 
 // Modal functionality
 function openModal() {
@@ -882,6 +884,8 @@ document.addEventListener('DOMContentLoaded', function() {
     showCookieConsent();
     createFloatingParticles();
     addTypingEffect();
+    
+
     
     // Play startup sound after a short delay
     setTimeout(playStartupSound, 1000);
