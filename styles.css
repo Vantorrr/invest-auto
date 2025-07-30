@@ -1452,11 +1452,68 @@ span.btn-sub {
 }
 
 .company-slogan {
-    font-size: 1.3rem;
-    color: rgba(80, 80, 80, 0.9);
-    font-weight: 500;
-    margin-bottom: 1rem;
-    font-style: italic;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    position: relative;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    
+    /* Переливающееся золото по тексту */
+    background: linear-gradient(
+        90deg,
+        #2C2C2C 0%,
+        #2C2C2C 25%,
+        #D4AF37 35%,
+        #FFD700 45%,
+        #FFF 50%,
+        #FFD700 55%,
+        #D4AF37 65%,
+        #2C2C2C 75%,
+        #2C2C2C 100%
+    );
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Мощный лозунг эффект */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+    
+    /* Золотое подчеркивание */
+    border-bottom: 3px solid;
+    border-image: linear-gradient(90deg, 
+        transparent 20%, 
+        #D4AF37 50%, 
+        transparent 80%
+    ) 1;
+    
+    /* Анимация лозунга + переливание */
+    animation: 
+        powerSloganAppear 1.2s ease-out,
+        goldTextShimmer 8s ease-in-out infinite 1.5s;
+}
+
+/* Золотые кавычки для лозунга */
+.company-slogan::before {
+    content: '"';
+    color: #D4AF37;
+    font-size: 2rem;
+    font-weight: 900;
+    position: absolute;
+    left: 0.2rem;
+    top: -0.1rem;
+}
+
+.company-slogan::after {
+    content: '"';
+    color: #D4AF37;
+    font-size: 2rem;
+    font-weight: 900;
+    position: absolute;
+    right: 0.2rem;
+    bottom: -0.3rem;
 }
 
 .partners-showcase {
@@ -1908,44 +1965,42 @@ section {
 }
 
 .cities h3 {
-    color: #5D2D0C;
+    color: #1A1A1A;
     margin-bottom: 0.5rem;
     font-weight: 900;
     text-shadow: 
-        0 1px 0 rgba(255, 255, 255, 0.9),
-        0 2px 4px rgba(139, 69, 19, 0.4),
-        0 0 8px rgba(255, 255, 255, 0.6);
+        0 0 3px rgba(255, 255, 255, 0.6),
+        0 1px 2px rgba(0, 0, 0, 0.6);
     letter-spacing: 1px;
     position: relative;
     z-index: 2;
     
-    /* Эффект выдавленного текста */
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    /* Мягкий контрастный эффект */
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
 }
 
 .cities-note {
-    color: #5D2D0C;
+    color: #2C2C2C;
     font-style: italic;
     font-size: 0.85rem;
     font-weight: 600;
     text-shadow: 
-        0 1px 0 rgba(255, 255, 255, 0.8),
-        0 0 6px rgba(255, 255, 255, 0.5);
+        0 0 2px rgba(255, 255, 255, 0.5),
+        0 1px 2px rgba(0, 0, 0, 0.5);
     position: relative;
     z-index: 2;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
 }
 
 .city-name {
-    color: #2F1B14 !important;
+    color: #1A1A1A !important;
     font-weight: 900 !important;
     letter-spacing: 0.5px;
     
-    /* Эффект вдавленной гравировки */
+    /* Мягкий современный эффект */
     text-shadow: 
-        0 -1px 0 rgba(255, 255, 255, 1),
-        0 1px 3px rgba(139, 69, 19, 0.8),
-        0 0 8px rgba(255, 255, 255, 0.7) !important;
+        0 0 3px rgba(255, 255, 255, 0.7),
+        0 1px 2px rgba(0, 0, 0, 0.7) !important;
     
     /* Дополнительный контраст */
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3)) !important;
@@ -2043,55 +2098,62 @@ section {
 }
 
 .assets-info h3 {
-    color: #2F1B14;
+    color: #1A1A1A;
     font-size: 1.1rem;
     font-weight: 900;
     text-shadow: 
-        0 1px 0 rgba(255, 255, 255, 1),
-        0 3px 6px rgba(139, 69, 19, 0.6),
-        0 0 12px rgba(255, 255, 255, 0.8);
+        0 0 3px rgba(255, 255, 255, 0.6),
+        0 1px 2px rgba(0, 0, 0, 0.6);
     letter-spacing: 0.8px;
     position: relative;
     z-index: 2;
     margin-top: 1.5rem;
     
-    /* Эффект глубокой гравировки */
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    /* Мягкий премиум эффект */
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
 }
 
-/* ПРЕМИУМ ПОДСВЕТКА СУММЫ */
+/* ЗОЛОТАЯ ПРЕМИУМ ПОДСВЕТКА СУММЫ */
 .highlight-amount {
-    background: linear-gradient(135deg, #8B4513 0%, #2F1B14 50%, #8B4513 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
+    color: #D4AF37 !important;
     font-weight: 900 !important;
     font-size: 1.4em !important;
     letter-spacing: 1px !important;
     position: relative;
     z-index: 2;
     
-    /* Глубокая гравировка для суммы */
-    filter: drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.8)) 
-            drop-shadow(0 2px 4px rgba(139, 69, 19, 0.6)) !important;
+    /* Золотое свечение */
+    text-shadow: 
+        0 0 8px rgba(255, 215, 0, 0.8),
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        0 1px 2px rgba(139, 69, 19, 0.6) !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) !important;
     
 }
 
-/* Дополнительный эффект выделения для суммы */
-.highlight-amount::after {
+/* ПЕРЕЛИВАЮЩЕЕСЯ ПОДЧЕРКИВАНИЕ ПОД ВСЕЙ СТРОКОЙ */
+.assets-info h3::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: -12px;
     left: 0;
     right: 0;
-    height: 2px;
+    width: 100%;
+    height: 4px;
     background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255, 111, 0, 0.8) 20%, 
-        rgba(255, 215, 0, 1) 50%, 
-        rgba(255, 111, 0, 0.8) 80%, 
-        transparent 100%);
-    border-radius: 1px;
+        rgba(255, 215, 0, 0.2) 0%, 
+        rgba(255, 215, 0, 0.5) 10%,
+        rgba(255, 111, 0, 0.8) 25%, 
+        rgba(255, 215, 0, 1) 40%,
+        rgba(255, 255, 255, 0.9) 50%,
+        rgba(255, 215, 0, 1) 60%,
+        rgba(255, 111, 0, 0.8) 75%,
+        rgba(255, 215, 0, 0.5) 90%,
+        rgba(255, 215, 0, 0.2) 100%);
+    background-size: 200% 100%;
+    border-radius: 2px;
+    animation: goldShimmer 3s ease-in-out infinite;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
 }
 
 /* АНИМАЦИИ ДЛЯ ЗОЛОТЫХ СЛИТКОВ */
@@ -2122,6 +2184,22 @@ section {
     100% { 
         background-position: -200% 0, 0 0, 0 0;
         transform: perspective(1200px) rotateX(8deg) rotateY(-2deg);
+    }
+}
+
+/* АНИМАЦИЯ ПЕРЕЛИВАНИЯ ПОДЧЕРКИВАНИЯ */
+@keyframes goldShimmer {
+    0% { 
+        background-position: -200% 0;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    }
+    50% { 
+        background-position: 200% 0;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+    100% { 
+        background-position: -200% 0;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
     }
 }
 
@@ -4762,6 +4840,49 @@ th {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes powerSloganAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+        border-image: linear-gradient(90deg, 
+            transparent 50%, 
+            transparent 50%, 
+            transparent 50%
+        ) 1;
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(0) scale(0.98);
+        border-image: linear-gradient(90deg, 
+            transparent 40%, 
+            #D4AF37 50%, 
+            transparent 60%
+        ) 1;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        border-image: linear-gradient(90deg, 
+            transparent 20%, 
+            #D4AF37 50%, 
+            transparent 80%
+        ) 1;
+    }
+}
+
+/* Анимация переливания золота по тексту */
+@keyframes goldTextShimmer {
+    0% {
+        background-position: -300% 0;
+    }
+    50% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 300% 0;
     }
 }
 
