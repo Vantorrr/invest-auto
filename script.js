@@ -1,3 +1,7 @@
+// Debug: Script loaded
+console.log('🚀 SCRIPT LOADED! Version 6 - КРАСИВЫЙ ТЕКСТ СТРАТЕГИИ!');
+console.log('🕐 Time:', new Date().toLocaleString());
+
 // Modal functionality
 function openModal() {
     document.getElementById('modal').style.display = 'block';
@@ -25,17 +29,32 @@ function toggleSelect(selectName) {
 }
 
 function selectOption(selectName, value, text) {
+    console.log(`🚀 selectOption called with:`, { selectName, value, text });
+    
     const hiddenInput = document.getElementById(selectName);
+    console.log(`🔍 Found hidden input:`, hiddenInput);
+    
     const trigger = document.querySelector(`#${selectName}-options`).previousElementSibling;
     const selectText = trigger.querySelector('.select-text');
     const options = document.getElementById(`${selectName}-options`);
     
+    // Debug: Log selection
+    console.log(`🎯 Selected ${selectName}:`, { value, text });
+    
     // Update hidden input value
     hiddenInput.value = value;
+    console.log(`🔥 AFTER SETTING - ${selectName} input value:`, hiddenInput.value);
+    console.log(`🔥 AFTER SETTING - ${selectName} input name:`, hiddenInput.name);
+    
+    // Debug: Confirm value was set
+    console.log(`✅ ${selectName} input value:`, hiddenInput.value);
     
     // Update displayed text
     selectText.textContent = text;
     selectText.classList.remove('placeholder');
+    
+    // Force form to recognize the change
+    hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
     
     // Update selected option styling
     const allOptions = options.querySelectorAll('.option');
@@ -97,21 +116,72 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
 // Form submission
 function submitForm(event) {
     event.preventDefault();
     
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+    console.log('🚀 submitForm called with event.target:', event.target);
     
-    // Here you would normally send data to your server
-    console.log('Form data:', data);
+    // MANUALLY GET VALUES to bypass FormData issue
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const investment = document.getElementById('investment').value;
+    const strategyValue = document.getElementById('strategy').value;
+    
+    // Convert strategy value to readable text
+    const strategyMap = {
+        'rent': 'Аренда ТС',
+        'buyout': 'Выкуп ТС',
+        'both': 'Рассмотрю обе'
+    };
+    const strategy = strategyMap[strategyValue] || 'Не указана';
+    
+    console.log('🔧 MANUAL VALUE COLLECTION:');
+    console.log(`  name: "${name}"`);
+    console.log(`  phone: "${phone}"`);
+    console.log(`  investment: "${investment}"`);
+    console.log(`  strategyValue: "${strategyValue}"`);
+    console.log(`  strategy (text): "${strategy}"`);
+    
+    // Create data object manually
+    const data = {
+        name: name,
+        phone: phone,
+        investment: investment,
+        strategy: strategy
+    };
+    
+    console.log('📊 Manual data object:', data);
+    
+    // Also try FormData for comparison
+    const formData = new FormData(event.target);
+    console.log('📦 FormData created:', formData);
+    
+    // Log all FormData entries
+    console.log('📋 FormData entries:');
+    for (let [key, value] of formData.entries()) {
+        console.log(`  ${key}: "${value}" (length: ${value.length})`);
+    }
+    
+    const formDataObj = Object.fromEntries(formData);
+    console.log('📊 FormData object:', formDataObj);
+    
+    // Check all inputs in the form
+    console.log('🔍 ALL FORM INPUTS:');
+    const allInputs = event.target.querySelectorAll('input, select, textarea');
+    allInputs.forEach(input => {
+        console.log(`  ${input.name || input.id}: "${input.value}" (type: ${input.type})`);
+    });
+    
+    // Use manual data (which should have strategy)
+    console.log('✅ Using MANUAL data for Telegram');
     
     // Close modal and show success animation
     closeModal();
     showSuccessAnimation();
     
-    // Send to Telegram (you'll need to implement this with your bot token)
+    // Send to Telegram with manual data
     sendToTelegram(data);
 }
 
@@ -163,17 +233,22 @@ function sendToTelegram(data) {
     const botToken = '7966772119:AAH7Xoo1Vd8HcsI7_8itPavwYA2bBpZubt4';
     const chatId = '-1002542142410';
     
+    // Debug: Show what data we're working with
+    console.log('📱 Sending to Telegram:', data);
+    
     const message = `
 🎯 Новая заявка на инвестиции!
 
-👤 Имя: ${data.name}
-📞 Телефон: ${data.phone}
-📧 Email: ${data.email || 'Не указан'}
+👤 Имя: ${data.name || 'Не указано'}
+📞 Телефон: ${data.phone || 'Не указан'}
 💰 Сумма инвестиций: ${data.investment || 'Не указана'}
 📊 Стратегия: ${data.strategy || 'Не указана'}
 
 🕐 Время: ${new Date().toLocaleString('ru-RU')}
     `;
+    
+    // Debug: Show final message
+    console.log('📨 Message to send:', message);
     
     // Send to Telegram
     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -292,15 +367,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Form validation
 function validateForm() {
+    console.log('🔍 validateForm called!');
+    
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
+    const strategy = document.getElementById('strategy').value.trim();
+    
+    console.log('📋 Validation values:', { name, phone, strategy });
+    console.log('📊 Strategy value details:', { 
+        value: strategy, 
+        length: strategy.length, 
+        isEmpty: strategy === '',
+        isFalsy: !strategy 
+    });
     
     if (!name) {
+        console.log('❌ Name validation failed');
         alert('Пожалуйста, введите ваше имя');
         return false;
     }
     
     if (!phone) {
+        console.log('❌ Phone validation failed');
         alert('Пожалуйста, введите номер телефона');
         return false;
     }
@@ -308,10 +396,19 @@ function validateForm() {
     // Basic phone validation
     const phoneRegex = /^[\+]?[0-9\s\-\(\)]{7,}$/;
     if (!phoneRegex.test(phone)) {
+        console.log('❌ Phone format validation failed');
         alert('Пожалуйста, введите корректный номер телефона');
         return false;
     }
     
+    // Strategy validation
+    if (!strategy || strategy === '') {
+        console.log('❌ Strategy validation failed - no strategy selected');
+        alert('Пожалуйста, выберите предпочитаемую стратегию');
+        return false;
+    }
+    
+    console.log('✅ ALL validation passed! Strategy:', strategy);
     return true;
 }
 
@@ -319,13 +416,25 @@ function validateForm() {
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('investorForm');
     if (form) {
+        console.log('🎯 Form found, adding event listener');
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('🛑 Form submission intercepted!');
+            
+            console.log('🔍 Before validation - checking strategy input...');
+            const strategyInput = document.getElementById('strategy');
+            console.log('📊 Strategy input element:', strategyInput);
+            console.log('📊 Strategy current value:', strategyInput ? strategyInput.value : 'not found');
             
             if (validateForm()) {
+                console.log('✅ Validation passed, calling submitForm');
                 submitForm(e);
+            } else {
+                console.log('❌ Validation failed, form not submitted');
             }
         });
+    } else {
+        console.log('❌ Form NOT found!');
     }
 });
 
