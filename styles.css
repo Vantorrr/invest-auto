@@ -1891,12 +1891,12 @@ section {
     margin-bottom: 3rem;
 }
 
-/* ЗОЛОТЫЕ СЛИТКИ - ГОРОДА */
+/* ЧИСТЫЕ ЗОЛОТЫЕ СЛИТКИ - ГОРОДА */
 .cities {
     text-align: center;
     padding: 2.5rem 2rem;
     background: 
-        linear-gradient(135deg, #FFD700 0%, #FFC107 25%, #FF8F00 50%, #FFC107 75%, #FFD700 100%),
+        linear-gradient(135deg, #FFEB3B 0%, #FDD835 25%, #F9A825 50%, #FDD835 75%, #FFEB3B 100%),
         linear-gradient(45deg, rgba(255, 255, 255, 0.3) 0%, transparent 20%, transparent 80%, rgba(255, 255, 255, 0.3) 100%);
     background-size: 100% 100%, 200% 200%;
     border-radius: 8px;
@@ -1905,16 +1905,16 @@ section {
     position: relative;
     overflow: hidden;
     
-    /* 3D Золотой слиток эффект */
+    /* 3D Чистый золотой слиток эффект */
     box-shadow: 
-        0 15px 35px rgba(255, 193, 7, 0.4),
+        0 15px 35px rgba(255, 235, 59, 0.4),
         0 5px 15px rgba(0, 0, 0, 0.1),
         inset 0 2px 0 rgba(255, 255, 255, 0.7),
-        inset 0 -2px 0 rgba(255, 140, 0, 0.8),
+        inset 0 -2px 0 rgba(249, 168, 37, 0.8),
         inset 2px 0 0 rgba(255, 255, 255, 0.3),
-        inset -2px 0 0 rgba(255, 140, 0, 0.5);
+        inset -2px 0 0 rgba(249, 168, 37, 0.5);
     
-    border: 2px solid #FF8F00;
+    border: 2px solid #F9A825;
     transform: perspective(1000px) rotateX(5deg);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     
@@ -1965,55 +1965,55 @@ section {
 }
 
 .cities h3 {
-    color: #1A1A1A;
+    color: #FFFFFF;
     margin-bottom: 0.5rem;
     font-weight: 900;
     text-shadow: 
-        0 0 3px rgba(255, 255, 255, 0.6),
-        0 1px 2px rgba(0, 0, 0, 0.6);
+        0 1px 3px rgba(0, 0, 0, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.2);
     letter-spacing: 1px;
     position: relative;
     z-index: 2;
     
-    /* Мягкий контрастный эффект */
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+    /* Мягкая тень для белого текста */
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
 .cities-note {
-    color: #2C2C2C;
+    color: #FFFFFF;
     font-style: italic;
     font-size: 0.85rem;
     font-weight: 600;
     text-shadow: 
-        0 0 2px rgba(255, 255, 255, 0.5),
-        0 1px 2px rgba(0, 0, 0, 0.5);
+        0 1px 2px rgba(0, 0, 0, 0.3),
+        0 2px 3px rgba(0, 0, 0, 0.2);
     position: relative;
     z-index: 2;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
 .city-name {
-    color: #1A1A1A !important;
+    color: #FFFFFF !important;
     font-weight: 900 !important;
     letter-spacing: 0.5px;
     
-    /* Мягкий современный эффект */
+    /* Мягкая тень для белого текста */
     text-shadow: 
-        0 0 3px rgba(255, 255, 255, 0.7),
-        0 1px 2px rgba(0, 0, 0, 0.7) !important;
+        0 1px 3px rgba(0, 0, 0, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.2) !important;
     
     /* Дополнительный контраст */
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3)) !important;
 }
 
-/* ЗОЛОТЫЕ СЛИТКИ - АКТИВЫ (ПРЕМИУМ) */
+/* ЧИСТЫЕ ЗОЛОТЫЕ СЛИТКИ - АКТИВЫ (ПРЕМИУМ) */
 .assets-info {
     text-align: center;
     padding: 3rem 2rem;
     background: 
-        linear-gradient(135deg, #FFD700 0%, #FFA000 20%, #FF6F00 40%, #FFA000 60%, #FFD700 80%, #FFECB3 100%),
+        linear-gradient(135deg, #FFEB3B 0%, #FDD835 20%, #F9A825 40%, #FDD835 60%, #FFEB3B 80%, #FFFDE7 100%),
         radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-        linear-gradient(45deg, rgba(255, 215, 0, 0.8) 0%, rgba(255, 111, 0, 0.8) 100%);
+        linear-gradient(45deg, rgba(255, 235, 59, 0.8) 0%, rgba(249, 168, 37, 0.8) 100%);
     background-size: 100% 100%, 200% 200%, 100% 100%;
     border-radius: 12px;
     color: #4A4A4A;
@@ -2021,17 +2021,17 @@ section {
     position: relative;
     overflow: hidden;
     
-    /* ПРЕМИУМ 3D эффект слитка */
+    /* ПРЕМИУМ 3D эффект чистого золота */
     box-shadow: 
-        0 20px 40px rgba(255, 193, 7, 0.5),
+        0 20px 40px rgba(255, 235, 59, 0.5),
         0 10px 20px rgba(0, 0, 0, 0.15),
         inset 0 3px 0 rgba(255, 255, 255, 0.8),
-        inset 0 -3px 0 rgba(255, 111, 0, 0.9),
+        inset 0 -3px 0 rgba(249, 168, 37, 0.9),
         inset 3px 0 0 rgba(255, 255, 255, 0.5),
-        inset -3px 0 0 rgba(255, 111, 0, 0.7),
-        inset 0 0 20px rgba(255, 215, 0, 0.3);
+        inset -3px 0 0 rgba(249, 168, 37, 0.7),
+        inset 0 0 20px rgba(255, 235, 59, 0.3);
     
-    border: 3px solid #FF6F00;
+    border: 3px solid #F9A825;
     transform: perspective(1200px) rotateX(8deg) rotateY(-2deg);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     
@@ -2098,36 +2098,35 @@ section {
 }
 
 .assets-info h3 {
-    color: #1A1A1A;
+    color: #FFFFFF;
     font-size: 1.1rem;
     font-weight: 900;
     text-shadow: 
-        0 0 3px rgba(255, 255, 255, 0.6),
-        0 1px 2px rgba(0, 0, 0, 0.6);
+        0 1px 3px rgba(0, 0, 0, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.2);
     letter-spacing: 0.8px;
     position: relative;
     z-index: 2;
     margin-top: 1.5rem;
     
-    /* Мягкий премиум эффект */
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+    /* Мягкая тень для белого текста */
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
-/* ЗОЛОТАЯ ПРЕМИУМ ПОДСВЕТКА СУММЫ */
+/* МАТОВАЯ СВЕТЛО-СЕРАЯ СУММА */
 .highlight-amount {
-    color: #D4AF37 !important;
+    color: #D0D0D0 !important;
     font-weight: 900 !important;
     font-size: 1.4em !important;
     letter-spacing: 1px !important;
     position: relative;
     z-index: 2;
     
-    /* Золотое свечение */
+    /* Аккуратные тени для матового эффекта */
     text-shadow: 
-        0 0 8px rgba(255, 215, 0, 0.8),
-        0 2px 4px rgba(0, 0, 0, 0.8),
-        0 1px 2px rgba(139, 69, 19, 0.6) !important;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) !important;
+        0 1px 3px rgba(0, 0, 0, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3)) !important;
     
 }
 
